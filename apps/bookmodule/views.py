@@ -9,4 +9,5 @@ def viewbook(request, bookId):
     return render(request, 'bookmodule/one_book.html')
 def aboutus(request): 
     return render(request, 'bookmodule/aboutus.html') 
-
+def html5_links(request):
+    return render(request, 'bookmodule/html5/links.html')

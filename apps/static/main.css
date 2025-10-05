@@ -1,0 +1,44 @@
+/* General Link Container */
+.link-container {
+    padding: 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+/* Base Link Style */
+.link-item {
+    display: block;
+    padding: 15px 25px;
+    margin: 15px auto;
+    text-align: center;
+    width: 400px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #3498db;
+    transition: all 0.3s ease;
+}
+
+/* Individual Link Colors */
+#link1 { background-color: #78bea6ef; }
+#link2 { background-color: #7f7f7f5e; }
+#link3 { background-color: #000000; }
+
+/* Link States */
+.link-item:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.link-item:active {
+    opacity: 0.7;
+    transform: translateY(0);
+}
+
+.link-item:visited {
+    opacity: 0.8;
+    background-color: #9b59b6;
+}
