@@ -42,3 +42,9 @@
     opacity: 0.8;
     background-color: #9b59b6;
 }
+h1 {
+    color: darkgreen;
+    text-align: left;
+    background-color: lab(83.53% -10.86 4.68);
+    padding: 10px;
+}
