@@ -42,9 +42,52 @@
     opacity: 0.8;
     background-color: #9b59b6;
 }
+/* Task 2 */
 h1 {
     color: darkgreen;
     text-align: left;
     background-color: lab(83.53% -10.86 4.68);
     padding: 10px;
+}
+/* Task 3 */
+.list-title {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+    font-family: Arial, sans-serif;
+}
+
+.main-list {
+    background-color: #f8f9fa;
+    padding: 30px;
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.main-list ul {
+    list-style-type: disc;
+    margin: 10px 0 10px 30px;
+}
+
+.main-list ol {
+    list-style-type: decimal;
+    margin: 10px 0 10px 30px;
+}
+
+.main-list li {
+    margin: 8px 0;
+    padding: 2px 0;
+}
+
+.main-list ul ul {
+    list-style-type: circle;
+}
+
+.main-list ul ul ul {
+    list-style-type: square;
 }

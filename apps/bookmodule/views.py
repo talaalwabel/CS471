@@ -13,4 +13,7 @@ def html5_links(request):
     return render(request, 'bookmodule/html5/links.html')
 def text_formatting(request):
     return render(request, 'bookmodule/html5/text/formatting.html')
+def html5_listing(request):
+    return render(request, 'bookmodule/html5/listing.html')
+
 
