@@ -91,3 +91,53 @@ h1 {
 .main-list ul ul ul {
     list-style-type: square;
 }
+/* Task 4: */
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.custom-table {
+    width: 90%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    border: 2px solid black;
+}
+
+.custom-table th,
+.custom-table td {
+    border: 2px solid black;
+    padding: 8px;
+    text-align: center;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.custom-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.table-caption {
+    font-style: italic;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.complex-table th {
+    background-color: #e6e6e6;
+}
+
+.image-cell {
+    padding: 5px;
+    text-align: center;
+    background-color: white;
+}
+
+.table-image {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #333;
+    display: block;
+    margin: 0 auto;
+}

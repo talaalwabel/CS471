@@ -15,5 +15,7 @@ def text_formatting(request):
     return render(request, 'bookmodule/html5/text/formatting.html')
 def html5_listing(request):
     return render(request, 'bookmodule/html5/listing.html')
+def html5_tables(request):
+    return render(request, 'bookmodule/html5/tables.html')
 
 
