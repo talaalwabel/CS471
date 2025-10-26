@@ -17,5 +17,12 @@ def html5_listing(request):
     return render(request, 'bookmodule/html5/listing.html')
 def html5_tables(request):
     return render(request, 'bookmodule/html5/tables.html')
+def search_books(request):
+    if request.method == "POST":
+        keyword = request.POST.get("keyword")
+        option1 = request.POST.get("option1")
+        option2 = request.POST.get("option2")
+        print(keyword, option1, option2)
+    return render(request, 'layouts/search.html')
 
 
