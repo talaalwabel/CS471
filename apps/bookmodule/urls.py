@@ -15,4 +15,6 @@ path('html5/listing/', views.html5_listing, name='html5_listing'),
 path('html5/tables/', views.html5_tables, name='html5_tables'),
 path('search/', views.search_books, name='search_books'),
 path('simple/query/', views.simple_query, name='simple_query'),
+path('complex/query/', views.lookup_query, name='lookup_query'),
+
 ]
