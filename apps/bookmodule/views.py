@@ -1,4 +1,6 @@
+from .models import Book
 from django.shortcuts import render
+
 
 
 def index(request): 
@@ -46,6 +48,12 @@ def search_books(request):
     
     
     return render(request, 'layouts/search.html')
+
+
+def simple_query(request):
+    mybooks = Book.objects.filter(title__icontains='and')  
+    return render(request, 'bookmodule/bookList.html', {'books': mybooks})
+
 
 
 

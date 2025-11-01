@@ -10,3 +10,9 @@
     {% endfor %}
     </ul>
 {% endblock %}
+{% for obj in books %}
+    ID: {{ obj.id }}<br>
+    Title: {{ obj.title }}<br>
+    <hr>
+{% endfor %}
+
