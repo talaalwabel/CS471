@@ -1,6 +1,7 @@
 from .models import Book
 from django.shortcuts import render
 from django.db.models import Q
+from django.db.models import Count, Sum, Avg, Max, Min
 
 
 def index(request): 
@@ -85,3 +86,13 @@ def task3(request):
 def task4(request):
     books = Book.objects.all().order_by('title')
     return render(request, 'bookmodule/task4.html', {'books': books})
+
+def task5(request):
+    stats = Book.objects.aggregate(
+        total_books=Count('id'),
+        total_price=Sum('price'),
+        avg_price=Avg('price'),
+        max_price=Max('price'),
+        min_price=Min('price')
+    )
+    return render(request, 'bookmodule/task5.html', {'stats': stats})
