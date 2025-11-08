@@ -81,3 +81,7 @@ def task3(request):
         ~Q(edition__gt=2) & (~Q(title__icontains='qu') | ~Q(author__icontains='qu'))
     )
     return render(request, 'bookmodule/task3.html', {'books': books})
+
+def task4(request):
+    books = Book.objects.all().order_by('title')
+    return render(request, 'bookmodule/task4.html', {'books': books})

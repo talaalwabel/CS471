@@ -1,0 +1,7 @@
+<h2>Books Ordered by Title</h2>
+{% for book in books %}
+ID: {{ book.id }} <br>
+Title: {{ book.title }} <br>
+Author: {{ book.author }} <br>
+<hr>
+{% endfor %}
