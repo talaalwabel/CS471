@@ -2,7 +2,7 @@ from .models import Book
 from django.shortcuts import render
 from django.db.models import Q
 from django.db.models import Count, Sum, Avg, Max, Min
-
+from .models import Book, Address, Student  
 
 def index(request): 
     return render(request, "bookmodule/index.html") 
@@ -96,3 +96,7 @@ def task5(request):
         min_price=Min('price')
     )
     return render(request, 'bookmodule/task5.html', {'stats': stats})
+
+def students_per_city(request):
+    data = Student.objects.values('address__city').annotate(num_students=Count('id'))
+    return render(request, 'bookmodule/task7.html', {'data': data})
