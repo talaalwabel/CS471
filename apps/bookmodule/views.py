@@ -1,6 +1,6 @@
 from .models import Book
 from django.shortcuts import render
-
+from django.db.models import Q
 
 
 def index(request): 
@@ -66,4 +66,6 @@ def lookup_query(request):
     else:
         return render(request, 'bookmodule/index.html')
 
-
+def task1(request):
+    books = Book.objects.filter(Q(price__lte=50))
+    return render(request, 'bookmodule/task1.html', {'books': books})
