@@ -67,9 +67,6 @@ def lookup_query(request):
     else:
         return render(request, 'bookmodule/index.html')
 
-def task1(request):
-    books = Book.objects.filter(Q(price__lte=50))
-    return render(request, 'bookmodule/task1.html', {'books': books})
 
 def task2(request):
     books = Book.objects.filter(
@@ -100,3 +97,13 @@ def task5(request):
 def students_per_city(request):
     data = Student.objects.values('address__city').annotate(num_students=Count('id'))
     return render(request, 'bookmodule/task7.html', {'data': data})
+
+
+
+
+def task1(request):
+    total_books = Book.objects.aggregate(total=Sum('quantity'))['total'] or 1
+    books = Book.objects.all()
+    for book in books:
+        book.percentage = round((book.quantity / total_books) * 100, 2)
+    return render(request, 'bookmodule/lab9/task1.html', {'books': books})
