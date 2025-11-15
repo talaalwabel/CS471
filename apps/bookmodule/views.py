@@ -1,4 +1,4 @@
-from .models import Book
+from .models import Book, Publisher, Author
 from django.shortcuts import render
 from django.db.models import Q
 from django.db.models import Count, Sum, Avg, Max, Min
@@ -68,12 +68,6 @@ def lookup_query(request):
         return render(request, 'bookmodule/index.html')
 
 
-def task2(request):
-    books = Book.objects.filter(
-        Q(edition__gt=2) & (Q(title__icontains='qu') | Q(author__icontains='qu'))
-    )
-    return render(request, 'bookmodule/task2.html', {'books': books})
-
 def task3(request):
     books = Book.objects.filter(
         ~Q(edition__gt=2) & (~Q(title__icontains='qu') | ~Q(author__icontains='qu'))
@@ -107,3 +101,7 @@ def task1(request):
     for book in books:
         book.percentage = round((book.quantity / total_books) * 100, 2)
     return render(request, 'bookmodule/lab9/task1.html', {'books': books})
+
+def task2(request):
+    publishers = Publisher.objects.annotate(total_stock=Sum('book__quantity'))
+    return render(request, 'bookmodule/lab9/task2.html', {'publishers': publishers})
