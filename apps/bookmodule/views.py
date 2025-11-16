@@ -68,16 +68,6 @@ def lookup_query(request):
         return render(request, 'bookmodule/index.html')
 
 
-def task5(request):
-    stats = Book.objects.aggregate(
-        total_books=Count('id'),
-        total_price=Sum('price'),
-        avg_price=Avg('price'),
-        max_price=Max('price'),
-        min_price=Min('price')
-    )
-    return render(request, 'bookmodule/task5.html', {'stats': stats})
-
 def students_per_city(request):
     data = Student.objects.values('address__city').annotate(num_students=Count('id'))
     return render(request, 'bookmodule/task7.html', {'data': data})
@@ -116,3 +106,14 @@ def task5(request):
         high_rated_count=Count('book', filter=Q(book__rating__gte=4))
     )
     return render(request, 'bookmodule/lab9/task5.html', {'publishers': publishers})
+
+
+def task6(request):
+    publishers = Publisher.objects.annotate(
+        filtered_books_count=Count(
+            'book',
+            filter=Q(book__price__gt=50, book__quantity__lt=5, book__quantity__gte=1)
+        )
+    )
+
+    return render(request, 'bookmodule/lab9/task6.html', {'publishers': publishers})
