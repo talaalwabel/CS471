@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Highly Rated Books Per Publisher</title>
+</head>
+<body>
+    <h1>Publishers and Their Highly Rated Books</h1>
+
+    <table border="1">
+        <tr>
+            <th>Publisher</th>
+            <th>Highly Rated Books (Rating ≥ 4)</th>
+        </tr>
+
+        {% for publisher in publishers %}
+        <tr>
+            <td>{{ publisher.name }}</td>
+            <td>{{ publisher.high_rated_count }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>

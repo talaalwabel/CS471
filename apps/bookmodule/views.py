@@ -110,3 +110,9 @@ def task4(request):
         max_price=Max('book__price')
     )
     return render(request, 'bookmodule/lab9/task4.html', {'publishers': publishers})
+
+def task5(request):
+    publishers = Publisher.objects.annotate(
+        high_rated_count=Count('book', filter=Q(book__rating__gte=4))
+    )
+    return render(request, 'bookmodule/lab9/task5.html', {'publishers': publishers})
