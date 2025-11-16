@@ -105,3 +105,10 @@ def task1(request):
 def task2(request):
     publishers = Publisher.objects.annotate(total_stock=Sum('book__quantity'))
     return render(request, 'bookmodule/lab9/task2.html', {'publishers': publishers})
+
+def task3(request):
+    publishers = Publisher.objects.annotate(
+        oldest_book_date=Min('book__pubdate')
+    )
+
+    return render(request, 'bookmodule/lab9/task3.html', {'publishers': publishers})
