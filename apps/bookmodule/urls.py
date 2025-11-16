@@ -19,9 +19,9 @@ path('complex/query/', views.lookup_query, name='lookup_query'),
 path('lab9/task1/', views.task1, name='task1'),
 path('lab9/task2/', views.task2, name='task2'),
 path('lab9/task3/', views.task3, name='task3'),
-path('lab8/task4/', views.task4, name='task4'),
+path('lab9/task4/', views.task4, name='task4'),
 path('lab8/task5/', views.task5, name='task5'),
-path('lab8/task7/', views.students_per_city, name='task7'),
+
 
 
 ]

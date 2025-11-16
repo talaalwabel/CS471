@@ -68,16 +68,6 @@ def lookup_query(request):
         return render(request, 'bookmodule/index.html')
 
 
-def task3(request):
-    books = Book.objects.filter(
-        ~Q(edition__gt=2) & (~Q(title__icontains='qu') | ~Q(author__icontains='qu'))
-    )
-    return render(request, 'bookmodule/task3.html', {'books': books})
-
-def task4(request):
-    books = Book.objects.all().order_by('title')
-    return render(request, 'bookmodule/task4.html', {'books': books})
-
 def task5(request):
     stats = Book.objects.aggregate(
         total_books=Count('id'),
@@ -112,3 +102,11 @@ def task3(request):
     )
 
     return render(request, 'bookmodule/lab9/task3.html', {'publishers': publishers})
+
+def task4(request):
+    publishers = Publisher.objects.annotate(
+        avg_price=Avg('book__price'),
+        min_price=Min('book__price'),
+        max_price=Max('book__price')
+    )
+    return render(request, 'bookmodule/lab9/task4.html', {'publishers': publishers})

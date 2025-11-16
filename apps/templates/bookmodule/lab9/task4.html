@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Prices per Publisher</title>
+</head>
+<body>
+    <h1>Book Prices per Publisher</h1>
+    <table border="1">
+        <tr>
+            <th>Publisher</th>
+            <th>Average Price</th>
+            <th>Min Price</th>
+            <th>Max Price</th>
+        </tr>
+        {% for publisher in publishers %}
+        <tr>
+            <td>{{ publisher.name }}</td>
+            <td>{{ publisher.avg_price|floatformat:2 }}</td>
+            <td>{{ publisher.min_price|floatformat:2 }}</td>
+            <td>{{ publisher.max_price|floatformat:2 }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
