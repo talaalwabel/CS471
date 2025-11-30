@@ -26,6 +26,10 @@ path('lab10/listbooks/', views.listbooks, name='listbooks'),
 path('lab10/addbook/', views.addbook, name='addbook'),
 path('lab10/editbook/<int:id>', views.editbook, name='editbook'),
 path('lab10/deletebook/<int:id>', views.deletebook, name='deletebook'),
+path('lab10p2/listbooks/', views.listbooks, name='listbooks'),
+path('lab10p2/addbook/', views.addbook, name='addbook'),
+path('lab10p2/editbook/<int:id>', views.editbook, name='editbook'),
+path('lab10p2/deletebook/<int:id>', views.deletebook, name='deletebook'),
 
 
 

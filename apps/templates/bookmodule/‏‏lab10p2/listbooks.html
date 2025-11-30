@@ -1,0 +1,26 @@
+<h1>Books (Part 2 - Django Forms)</h1>
+
+<a href="/books/lab10p2/addbook">Add Book</a>
+
+<table border="1">
+    <tr>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Publisher</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for b in books %}
+    <tr>
+        <td>{{ b.title }}</td>
+        <td>{{ b.price }}</td>
+        <td>{{ b.quantity }}</td>
+        <td>{{ b.publisher.name }}</td>
+        <td>
+            <a href="/books/lab10p2/editbook/{{ b.id }}">Edit</a> |
+            <a href="/books/lab10p2/deletebook/{{ b.id }}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>

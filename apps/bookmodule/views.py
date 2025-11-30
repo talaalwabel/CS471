@@ -183,3 +183,35 @@ def deletebook(request, id):
     book.delete()
     return redirect('/books/lab10/listbooks')
 
+def listbooks_p2(request):
+    books = Book.objects.all()
+    return render(request, 'bookmodule/lab10p2/listbooks.html', {'books': books})
+
+def addbook_p2(request):
+    if request.method == "POST":
+        form = BookForm(request.POST)
+        if form.is_valid():
+            book = form.save(commit=False)
+            book.pubdate = datetime.now()
+            book.save()
+            return redirect('/books/lab10p2/listbooks')
+    else:
+        form = BookForm()
+
+    return render(request, 'bookmodule/lab10p2/addbook.html', {'form': form})
+def editbook_p2(request, id):
+    book = Book.objects.get(id=id)
+
+    if request.method == "POST":
+        form = BookForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+            return redirect('/books/lab10p2/listbooks')
+    else:
+        form = BookForm(instance=book)
+
+    return render(request, 'bookmodule/lab10p2/editbook.html', {'form': form})
+def deletebook_p2(request, id):
+    book = Book.objects.get(id=id)
+    book.delete()
+    return redirect('/books/lab10p2/listbooks')
