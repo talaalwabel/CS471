@@ -1,5 +1,5 @@
 from .models import Book, Publisher, Author
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 from django.db.models import Count, Sum, Avg, Max, Min
 from .models import Book, Address, Student 
@@ -153,3 +153,26 @@ def addbook(request):
     
     publishers = Publisher.objects.all()
     return render(request, 'bookmodule/lab10/addbook.html', {'publishers': publishers})
+
+
+
+def editbook(request, id):
+    book = get_object_or_404(Book, id=id)
+
+    if request.method == "POST":
+        book.title = request.POST.get('title')
+        book.price = request.POST.get('price')
+        book.quantity = request.POST.get('quantity')
+        publisher_id = request.POST.get('publisher')
+        book.publisher = Publisher.objects.get(id=publisher_id)
+        book.pubdate = datetime.now()
+
+        book.save()
+
+        return redirect('/books/lab10/listbooks')
+
+    publishers = Publisher.objects.all()
+    return render(request, 'bookmodule/lab10/editbook.html', {
+        'book': book,
+        'publishers': publishers
+    })

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Book</title>
+</head>
+<body>
+
+<h1>Edit Book</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>Title:</label><br>
+    <input type="text" name="title" value="{{ book.title }}" required><br><br>
+
+    <label>Price:</label><br>
+    <input type="number" step="0.1" name="price" value="{{ book.price }}" required><br><br>
+
+    <label>Quantity:</label><br>
+    <input type="number" name="quantity" value="{{ book.quantity }}" required><br><br>
+
+    <label>Publisher:</label><br>
+    <select name="publisher" required>
+        {% for pub in publishers %}
+        <option value="{{ pub.id }}" {% if book.publisher.id == pub.id %}selected{% endif %}>
+            {{ pub.name }}
+        </option>
+        {% endfor %}
+    </select><br><br>
+
+    <button type="submit">Save Changes</button>
+</form>
+
+<br>
+<a href="/books/lab10/listbooks">Back to List</a>
+
+</body>
+</html>
