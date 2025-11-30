@@ -1,6 +1,6 @@
 <h1>Books List</h1>
 
-<a href="/books/lab10_part1/addbook">Add New Book</a>
+<a href="/books/lab10/addbook">Add New Book</a>
 
 <table border="1">
     <tr>
@@ -17,8 +17,8 @@
         <td>{{ b.price }}</td>
         <td>{{ b.quantity }}</td>
 
-        <td><a href="/books/lab10_part1/editbook/{{ b.id }}">Edit</a></td>
-        <td><a href="/books/lab10_part1/deletebook/{{ b.id }}">Delete</a></td>
+        <td><a href="/books/lab10/editbook/{{ b.id }}">Edit</a></td>
+        <td><a href="/books/lab10/deletebook/{{ b.id }}">Delete</a></td>
     </tr>
     {% endfor %}
 </table>

@@ -1,8 +1,11 @@
 from .models import Book, Publisher, Author
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.db.models import Count, Sum, Avg, Max, Min
-from .models import Book, Address, Student  
+from .models import Book, Address, Student 
+from datetime import datetime
+
+
 
 def index(request): 
     return render(request, "bookmodule/index.html") 
@@ -122,3 +125,31 @@ def task6(request):
 def listbooks(request):
     books = Book.objects.all()
     return render(request, 'bookmodule/lab10/listbooks.html', {'books': books})
+
+
+from datetime import datetime
+
+def addbook(request):
+    if request.method == "POST":
+        title = request.POST.get('title')
+        price = request.POST.get('price')
+        quantity = request.POST.get('quantity')
+        publisher_id = request.POST.get('publisher')
+
+        
+        publisher = Publisher.objects.get(id=publisher_id)
+
+        
+        Book.objects.create(
+            title=title,
+            price=price,
+            quantity=quantity,
+            pubdate=datetime.now(),
+            publisher=publisher
+        )
+
+        return redirect('/books/lab10/listbooks')
+
+    
+    publishers = Publisher.objects.all()
+    return render(request, 'bookmodule/lab10/addbook.html', {'publishers': publishers})
