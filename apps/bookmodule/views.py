@@ -176,3 +176,10 @@ def editbook(request, id):
         'book': book,
         'publishers': publishers
     })
+
+
+def deletebook(request, id):
+    book = get_object_or_404(Book, id=id)
+    book.delete()
+    return redirect('/books/lab10/listbooks')
+

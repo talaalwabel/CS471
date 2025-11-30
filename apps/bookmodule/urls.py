@@ -25,6 +25,7 @@ path('lab9/task6/', views.task6, name='task6'),
 path('lab10/listbooks/', views.listbooks, name='listbooks'),
 path('lab10/addbook/', views.addbook, name='addbook'),
 path('lab10/editbook/<int:id>', views.editbook, name='editbook'),
+path('lab10/deletebook/<int:id>', views.deletebook, name='deletebook'),
 
 
 
