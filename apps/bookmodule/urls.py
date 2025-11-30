@@ -22,6 +22,7 @@ path('lab9/task3/', views.task3, name='task3'),
 path('lab9/task4/', views.task4, name='task4'),
 path('lab9/task5/', views.task5, name='task5'),
 path('lab9/task6/', views.task6, name='task6'),
+path('lab10/listbooks', views.listbooks, name='listbooks'),
 
 
 ]

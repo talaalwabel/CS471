@@ -117,3 +117,8 @@ def task6(request):
     )
 
     return render(request, 'bookmodule/lab9/task6.html', {'publishers': publishers})
+
+
+def listbooks(request):
+    books = Book.objects.all()
+    return render(request, 'bookmodule/lab10/listbooks.html', {'books': books})
