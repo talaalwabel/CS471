@@ -2,10 +2,9 @@ from .models import Book, Publisher, Author
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 from django.db.models import Count, Sum, Avg, Max, Min
-from .models import Book, Address, Student, Student2, Address2
+from .models import Book, Address, Student, Student2, Address2, Gallery
 from datetime import datetime
-
-
+from .forms import GalleryForm
 
 
 def index(request): 
@@ -306,3 +305,25 @@ def delete_student2(request, id):
     student = Student2.objects.get(id=id)
     student.delete()
     return redirect('/books/lab11/task2/students/')
+
+def gallery_list(request):
+    images = Gallery.objects.all()
+    return render(request, 'bookmodule/lab11/task3/gallery_list.html', {'images': images})
+
+
+def add_image(request):
+    if request.method == "POST":
+        form = GalleryForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('/books/lab11/task3/gallery/')
+    else:
+        form = GalleryForm()
+
+    return render(request, 'bookmodule/lab11/task3/add_image.html', {'form': form})
+
+
+def delete_image(request, id):
+    img = Gallery.objects.get(id=id)
+    img.delete()
+    return redirect('/books/lab11/task3/gallery/')

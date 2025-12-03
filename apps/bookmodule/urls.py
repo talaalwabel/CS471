@@ -38,6 +38,9 @@ path('lab11/task2/students/', views.list_students2, name='list_students2'),
 path('lab11/task2/addstudent/', views.add_student2, name='add_student2'),
 path('lab11/task2/editstudent/<int:id>/', views.edit_student2, name='edit_student2'),
 path('lab11/task2/deletestudent/<int:id>/', views.delete_student2, name='delete_student2'),
+path('lab11/task3/gallery/', views.gallery_list, name='gallery_list'),
+path('lab11/task3/add/', views.add_image, name='gallery_add'),
+path('lab11/task3/delete/<int:id>/', views.delete_image, name='gallery_delete'),
 
 
 
