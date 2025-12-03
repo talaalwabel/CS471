@@ -1,0 +1,21 @@
+<h1>Add Student (Many-to-Many)</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>Name:</label><br>
+    <input type="text" name="name" required><br><br>
+
+    <label>Age:</label><br>
+    <input type="number" name="age" required><br><br>
+
+    <label>Addresses (choose multiple):</label><br>
+    {% for a in addresses %}
+        <input type="checkbox" name="addresses" value="{{ a.id }}"> {{ a.city }}<br>
+    {% endfor %}
+
+    <br>
+    <button type="submit">Save</button>
+</form>
+
+<a href="/books/lab11/task2/students/">Back</a>

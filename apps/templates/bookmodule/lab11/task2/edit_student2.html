@@ -1,0 +1,19 @@
+<h1>Edit Student (Many-to-Many)</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    Name: <input type="text" name="name" value="{{ student.name }}"><br><br>
+
+    Age: <input type="number" name="age" value="{{ student.age }}"><br><br>
+
+    Addresses:<br>
+    {% for ad in addresses %}
+        <input type="checkbox" name="addresses" value="{{ ad.id }}"
+            {% if ad in student.addresses.all %}checked{% endif %}
+        >
+        {{ ad.city }}<br>
+    {% endfor %}
+
+    <br><button type="submit">Update</button>
+</form>

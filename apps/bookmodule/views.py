@@ -2,7 +2,7 @@ from .models import Book, Publisher, Author
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 from django.db.models import Count, Sum, Avg, Max, Min
-from .models import Book, Address, Student 
+from .models import Book, Address, Student, Student2, Address2
 from datetime import datetime
 
 
@@ -263,3 +263,46 @@ def delete_student(request, id):
     student = Student.objects.get(id=id)
     student.delete()
     return redirect('/books/lab11/students/')
+
+def list_students2(request):
+    students = Student2.objects.all()
+    return render(request, 'bookmodule/lab11/task2/list_students2.html', {'students': students})
+
+def add_student2(request):
+    addresses = Address2.objects.all()
+
+    if request.method == "POST":
+        name = request.POST.get('name')
+        age = request.POST.get('age')
+        selected_addresses = request.POST.getlist('addresses')
+
+        student = Student2.objects.create(name=name, age=age)
+        student.addresses.set(selected_addresses)
+
+        return redirect('/books/lab11/task2/students/')
+
+    return render(request, 'bookmodule/lab11/task2/add_student2.html', {'addresses': addresses})
+
+def edit_student2(request, id):
+    student = Student2.objects.get(id=id)
+    addresses = Address2.objects.all()
+
+    if request.method == "POST":
+        student.name = request.POST.get('name')
+        student.age = request.POST.get('age')
+        selected_addresses = request.POST.getlist('addresses')
+
+        student.addresses.set(selected_addresses)
+        student.save()
+
+        return redirect('/books/lab11/task2/students/')
+
+    return render(request, 'bookmodule/lab11/task2/edit_student2.html', {
+        'student': student,
+        'addresses': addresses
+    })
+
+def delete_student2(request, id):
+    student = Student2.objects.get(id=id)
+    student.delete()
+    return redirect('/books/lab11/task2/students/')

@@ -34,6 +34,10 @@ path('lab11/students/', views.list_students, name='lab11_liststudents'),
 path('lab11/addstudent/', views.add_student, name='lab11_addstudent'),
 path('lab11/editstudent/<int:id>/', views.edit_student, name='lab11_editstudent'),
 path('lab11/deletestudent/<int:id>/', views.delete_student, name='lab11_deletestudent'),
+path('lab11/task2/students/', views.list_students2, name='list_students2'),
+path('lab11/task2/addstudent/', views.add_student2, name='add_student2'),
+path('lab11/task2/editstudent/<int:id>/', views.edit_student2, name='edit_student2'),
+path('lab11/task2/deletestudent/<int:id>/', views.delete_student2, name='delete_student2'),
 
 
 

@@ -1,0 +1,28 @@
+<h1>Students</h1>
+
+<a href="/books/lab11/task2/addstudent/">Add Student</a>
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Addresses</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for s in students %}
+    <tr>
+        <td>{{ s.name }}</td>
+        <td>{{ s.age }}</td>
+        <td>
+            {% for a in s.addresses.all %}
+                {{ a.city }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </td>
+        <td>
+            <a href="/books/lab11/task2/editstudent/{{ s.id }}/">Edit</a> |
+            <a href="/books/lab11/task2/deletestudent/{{ s.id }}/">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
