@@ -1,0 +1,23 @@
+<h1>Add Student</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    Name:<br>
+    <input type="text" name="name"><br><br>
+
+    Age:<br>
+    <input type="number" name="age"><br><br>
+
+    Address:<br>
+    <select name="address">
+        {% for a in addresses %}
+        <option value="{{ a.id }}">{{ a.city }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <button type="submit">Save</button>
+</form>
+
+<br>
+<a href="/books/lab11/students/">Back</a>

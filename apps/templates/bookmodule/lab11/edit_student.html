@@ -1,0 +1,26 @@
+<h1>Edit Student</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    Name:<br>
+    <input type="text" name="name" value="{{ student.name }}"><br><br>
+
+    Age:<br>
+    <input type="number" name="age" value="{{ student.age }}"><br><br>
+
+    Address:<br>
+    <select name="address">
+        {% for a in addresses %}
+        <option value="{{ a.id }}" {% if student.address.id == a.id %}selected{% endif %}>
+            {{ a.city }}
+        </option>
+        {% endfor %}
+    </select><br><br>
+
+    <button type="submit">Update</button>
+</form>
+
+<br>
+<a href="/books/lab11/students/">Back</a>
+

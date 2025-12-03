@@ -7,6 +7,7 @@ from datetime import datetime
 
 
 
+
 def index(request): 
     return render(request, "bookmodule/index.html") 
 def list_books(request): 
@@ -127,7 +128,6 @@ def listbooks(request):
     return render(request, 'bookmodule/lab10/listbooks.html', {'books': books})
 
 
-from datetime import datetime
 
 def addbook(request):
     if request.method == "POST":
@@ -211,7 +211,55 @@ def editbook_p2(request, id):
         form = BookForm(instance=book)
 
     return render(request, 'bookmodule/lab10p2/editbook.html', {'form': form})
+
 def deletebook_p2(request, id):
     book = Book.objects.get(id=id)
     book.delete()
     return redirect('/books/lab10p2/listbooks')
+
+def list_students(request):
+    students = Student.objects.all()
+    return render(request, 'bookmodule/lab11/list_students.html', {'students': students})
+
+def add_student(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        age = request.POST.get('age')
+        address_id = request.POST.get('address')
+
+        address = Address.objects.get(id=address_id)
+
+        Student.objects.create(
+            name=name,
+            age=age,
+            address=address
+        )
+
+        return redirect('/books/lab11/students/')
+
+    addresses = Address.objects.all()
+    return render(request, 'bookmodule/lab11/add_student.html', {'addresses': addresses})
+
+def edit_student(request, id):
+    student = Student.objects.get(id=id)
+
+    if request.method == "POST":
+        student.name = request.POST.get('name')
+        student.age = request.POST.get('age')
+        address_id = request.POST.get('address')
+        student.address = Address.objects.get(id=address_id)
+
+        student.save()
+        return redirect('/books/lab11/students/')
+
+    addresses = Address.objects.all()
+    
+    return render(request, 'bookmodule/lab11/edit_student.html', {
+        'student': student,
+        'addresses': addresses
+    })
+
+def delete_student(request, id):
+    student = Student.objects.get(id=id)
+    student.delete()
+    return redirect('/books/lab11/students/')
