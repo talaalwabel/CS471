@@ -31,7 +31,7 @@ def user_login(request):
         if user is not None:
             login(request, user)
             messages.success(request, "Login successful!")
-            return redirect('/books/lab11/students/')   # ← المكان اللي ترجعين له بعد النجاح
+            return redirect('/books/lab11/students/')   
         else:
             messages.error(request, "Invalid username or password")
 
