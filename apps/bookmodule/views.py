@@ -5,6 +5,7 @@ from django.db.models import Count, Sum, Avg, Max, Min
 from .models import Book, Address, Student, Student2, Address2, Gallery
 from datetime import datetime
 from .forms import GalleryForm
+from django.contrib.auth.decorators import login_required
 
 
 def index(request): 
@@ -78,6 +79,7 @@ def students_per_city(request):
 
 
 
+@login_required(login_url='/users/login/')
 def task1(request):
     total_books = Book.objects.aggregate(total=Sum('quantity'))['total'] or 1
     books = Book.objects.all()
@@ -85,17 +87,17 @@ def task1(request):
         book.percentage = round((book.quantity / total_books) * 100, 2)
     return render(request, 'bookmodule/lab9/task1.html', {'books': books})
 
+@login_required(login_url='/users/login/')
 def task2(request):
     publishers = Publisher.objects.annotate(total_stock=Sum('book__quantity'))
     return render(request, 'bookmodule/lab9/task2.html', {'publishers': publishers})
 
+@login_required(login_url='/users/login/')
 def task3(request):
-    publishers = Publisher.objects.annotate(
-        oldest_book_date=Min('book__pubdate')
-    )
-
+    publishers = Publisher.objects.annotate(oldest_book_date=Min('book__pubdate'))
     return render(request, 'bookmodule/lab9/task3.html', {'publishers': publishers})
 
+@login_required(login_url='/users/login/')
 def task4(request):
     publishers = Publisher.objects.annotate(
         avg_price=Avg('book__price'),
@@ -104,30 +106,30 @@ def task4(request):
     )
     return render(request, 'bookmodule/lab9/task4.html', {'publishers': publishers})
 
+@login_required(login_url='/users/login/')
 def task5(request):
     publishers = Publisher.objects.annotate(
         high_rated_count=Count('book', filter=Q(book__rating__gte=4))
     )
     return render(request, 'bookmodule/lab9/task5.html', {'publishers': publishers})
 
-
+@login_required(login_url='/users/login/')
 def task6(request):
     publishers = Publisher.objects.annotate(
-        filtered_books_count=Count(
-            'book',
+        filtered_books_count=Count('book',
             filter=Q(book__price__gt=50, book__quantity__lt=5, book__quantity__gte=1)
         )
     )
-
     return render(request, 'bookmodule/lab9/task6.html', {'publishers': publishers})
 
 
+@login_required(login_url='/users/login/')
 def listbooks(request):
     books = Book.objects.all()
     return render(request, 'bookmodule/lab10/listbooks.html', {'books': books})
 
 
-
+@login_required(login_url='/users/login/')
 def addbook(request):
     if request.method == "POST":
         title = request.POST.get('title')
@@ -135,10 +137,8 @@ def addbook(request):
         quantity = request.POST.get('quantity')
         publisher_id = request.POST.get('publisher')
 
-        
         publisher = Publisher.objects.get(id=publisher_id)
 
-        
         Book.objects.create(
             title=title,
             price=price,
@@ -149,12 +149,11 @@ def addbook(request):
 
         return redirect('/books/lab10/listbooks')
 
-    
     publishers = Publisher.objects.all()
     return render(request, 'bookmodule/lab10/addbook.html', {'publishers': publishers})
 
 
-
+@login_required(login_url='/users/login/')
 def editbook(request, id):
     book = get_object_or_404(Book, id=id)
 
@@ -165,27 +164,26 @@ def editbook(request, id):
         publisher_id = request.POST.get('publisher')
         book.publisher = Publisher.objects.get(id=publisher_id)
         book.pubdate = datetime.now()
-
         book.save()
-
         return redirect('/books/lab10/listbooks')
 
     publishers = Publisher.objects.all()
-    return render(request, 'bookmodule/lab10/editbook.html', {
-        'book': book,
-        'publishers': publishers
-    })
+    return render(request, 'bookmodule/lab10/editbook.html', {'book': book,'publishers': publishers})
 
 
+@login_required(login_url='/users/login/')
 def deletebook(request, id):
     book = get_object_or_404(Book, id=id)
     book.delete()
     return redirect('/books/lab10/listbooks')
 
+@login_required(login_url='/users/login/')
 def listbooks_p2(request):
     books = Book.objects.all()
     return render(request, 'bookmodule/lab10p2/listbooks.html', {'books': books})
 
+
+@login_required(login_url='/users/login/')
 def addbook_p2(request):
     if request.method == "POST":
         form = BookForm(request.POST)
@@ -198,6 +196,9 @@ def addbook_p2(request):
         form = BookForm()
 
     return render(request, 'bookmodule/lab10p2/addbook.html', {'form': form})
+
+
+@login_required(login_url='/users/login/')
 def editbook_p2(request, id):
     book = Book.objects.get(id=id)
 
@@ -211,106 +212,98 @@ def editbook_p2(request, id):
 
     return render(request, 'bookmodule/lab10p2/editbook.html', {'form': form})
 
+
+@login_required(login_url='/users/login/')
 def deletebook_p2(request, id):
     book = Book.objects.get(id=id)
     book.delete()
     return redirect('/books/lab10p2/listbooks')
 
+@login_required(login_url='/users/login/')
 def list_students(request):
     students = Student.objects.all()
     return render(request, 'bookmodule/lab11/list_students.html', {'students': students})
 
+
+@login_required(login_url='/users/login/')
 def add_student(request):
     if request.method == "POST":
         name = request.POST.get('name')
         age = request.POST.get('age')
         address_id = request.POST.get('address')
-
         address = Address.objects.get(id=address_id)
-
-        Student.objects.create(
-            name=name,
-            age=age,
-            address=address
-        )
-
+        Student.objects.create(name=name, age=age, address=address)
         return redirect('/books/lab11/students/')
-
     addresses = Address.objects.all()
     return render(request, 'bookmodule/lab11/add_student.html', {'addresses': addresses})
 
+
+@login_required(login_url='/users/login/')
 def edit_student(request, id):
     student = Student.objects.get(id=id)
-
     if request.method == "POST":
         student.name = request.POST.get('name')
         student.age = request.POST.get('age')
         address_id = request.POST.get('address')
         student.address = Address.objects.get(id=address_id)
-
         student.save()
         return redirect('/books/lab11/students/')
-
     addresses = Address.objects.all()
-    
-    return render(request, 'bookmodule/lab11/edit_student.html', {
-        'student': student,
-        'addresses': addresses
-    })
+    return render(request, 'bookmodule/lab11/edit_student.html', {'student': student,'addresses': addresses})
 
+
+@login_required(login_url='/users/login/')
 def delete_student(request, id):
     student = Student.objects.get(id=id)
     student.delete()
     return redirect('/books/lab11/students/')
 
+@login_required(login_url='/users/login/')
 def list_students2(request):
     students = Student2.objects.all()
     return render(request, 'bookmodule/lab11/task2/list_students2.html', {'students': students})
 
+
+@login_required(login_url='/users/login/')
 def add_student2(request):
     addresses = Address2.objects.all()
-
     if request.method == "POST":
         name = request.POST.get('name')
         age = request.POST.get('age')
         selected_addresses = request.POST.getlist('addresses')
-
         student = Student2.objects.create(name=name, age=age)
         student.addresses.set(selected_addresses)
-
         return redirect('/books/lab11/task2/students/')
-
     return render(request, 'bookmodule/lab11/task2/add_student2.html', {'addresses': addresses})
 
+
+@login_required(login_url='/users/login/')
 def edit_student2(request, id):
     student = Student2.objects.get(id=id)
     addresses = Address2.objects.all()
-
     if request.method == "POST":
         student.name = request.POST.get('name')
         student.age = request.POST.get('age')
         selected_addresses = request.POST.getlist('addresses')
-
         student.addresses.set(selected_addresses)
         student.save()
-
         return redirect('/books/lab11/task2/students/')
+    return render(request, 'bookmodule/lab11/task2/edit_student2.html', {'student': student,'addresses': addresses})
 
-    return render(request, 'bookmodule/lab11/task2/edit_student2.html', {
-        'student': student,
-        'addresses': addresses
-    })
 
+@login_required(login_url='/users/login/')
 def delete_student2(request, id):
     student = Student2.objects.get(id=id)
     student.delete()
     return redirect('/books/lab11/task2/students/')
 
+@login_required(login_url='/users/login/')
 def gallery_list(request):
     images = Gallery.objects.all()
     return render(request, 'bookmodule/lab11/task3/gallery_list.html', {'images': images})
 
 
+@login_required(login_url='/users/login/')
 def add_image(request):
     if request.method == "POST":
         form = GalleryForm(request.POST, request.FILES)
@@ -319,10 +312,10 @@ def add_image(request):
             return redirect('/books/lab11/task3/gallery/')
     else:
         form = GalleryForm()
-
     return render(request, 'bookmodule/lab11/task3/add_image.html', {'form': form})
 
 
+@login_required(login_url='/users/login/')
 def delete_image(request, id):
     img = Gallery.objects.get(id=id)
     img.delete()
